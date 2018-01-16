@@ -7,14 +7,12 @@ spec:
     matchLabels:
       app: callowayart
       tier: frontend
-      type: deployment
   replicas: 2
   template:
     metadata:
       labels:
         app: callowayart
         tier: frontend
-        type: deployment
     spec:
       containers:
       - name: frontend
@@ -22,10 +20,15 @@ spec:
         env:
           - name: GET_HOSTS_FROM
             value: dns
-            WORDPRESS_DB_HOST: db:3306
-            WORDPRESS_DB_USER: wordpress
-            WORDPRESS_DB_PASSWORD: wordpress
-            MIGRATION_AWS_ACCESS_KEY_ID: ${MIGRATION_AWS_ACCESS_KEY_ID}
-            MIGRATION_AWS_SECRET_ACCESS_KEY: ${MIGRATION_AWS_SECRET_ACCESS_KEY}
+          - name: WORDPRESS_DB_HOST
+            value: mysql:3306
+          - name: WORDPRESS_DB_USER
+            value: mysql
+          - name: WORDPRESS_DB_PASSWORD
+            value: password
+          - name: MIGRATION_AWS_ACCESS_KEY_ID
+            value: ${MIGRATION_AWS_ACCESS_KEY_ID}
+          - name: MIGRATION_AWS_SECRET_ACCESS_KEY
+            value: fdsa
         ports:
         - containerPort: 80
